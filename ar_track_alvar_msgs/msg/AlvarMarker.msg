@@ -2,4 +2,7 @@ Header header
 uint32 id
 uint32 confidence
 geometry_msgs/PoseStamped pose
-
+geometry_msgs/PoseStamped pose_img_0
+geometry_msgs/PoseStamped pose_img_1
+geometry_msgs/PoseStamped pose_img_2
+geometry_msgs/PoseStamped pose_img_3
