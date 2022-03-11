@@ -75,6 +75,16 @@ std::string output_frame;
 int marker_resolution = 5; // default marker resolution
 int marker_margin = 2; // default marker margin
 
+// Method to get the corners of the detected marker.	
+geometry_msgs::Pose get_image_corners(const vector <PointDouble> &img_marker, int i)	
+{	
+  geometry_msgs::Pose pt = geometry_msgs::Pose();	
+  pt.position.x = img_marker.at(i).x;	
+  pt.position.y = img_marker.at(i).y;	
+  return pt;	
+}	
+
+
 void getCapCallback (const sensor_msgs::ImageConstPtr & image_msg);
 
 
@@ -201,6 +211,10 @@ void getCapCallback (const sensor_msgs::ImageConstPtr & image_msg)
 
 				//Create the pose marker messages
 				ar_track_alvar_msgs::AlvarMarker ar_pose_marker;
+				ar_pose_marker.pose_img_0.pose = get_image_corners((*(marker_detector.markers))[i].marker_corners_img, 0);	
+        		        ar_pose_marker.pose_img_1.pose = get_image_corners((*(marker_detector.markers))[i].marker_corners_img, 1);	
+        			ar_pose_marker.pose_img_2.pose = get_image_corners((*(marker_detector.markers))[i].marker_corners_img, 2);	
+        			ar_pose_marker.pose_img_3.pose = get_image_corners((*(marker_detector.markers))[i].marker_corners_img, 3);
 				tf::poseTFToMsg (tagPoseOutput, ar_pose_marker.pose.pose);
       			ar_pose_marker.header.frame_id = output_frame;
 			    ar_pose_marker.header.stamp = image_msg->header.stamp;
